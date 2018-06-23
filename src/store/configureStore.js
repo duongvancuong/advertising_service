@@ -4,7 +4,7 @@ import rootReducer from '../reducers';
 import rootSaga from '../sagas';
 import { subscribeStore, loadState } from '../services/localstorage';
 // Returns the store instance
-// It can  also take initialState argument when provided
+// It can also take initialState argument when provided
 
 const persistedState = loadState();
 

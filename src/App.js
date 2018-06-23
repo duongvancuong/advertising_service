@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
+import { connect } from 'react-redux';
 
 import './App.css';
 
@@ -25,4 +26,11 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (states) => {
+  const { isAuthenticated } = states.auth;
+  return {
+    isAuthenticated,
+  }
+}
+
+export default connect(mapStateToProps)(App);
