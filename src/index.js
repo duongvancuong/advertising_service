@@ -11,7 +11,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-const store = configureStore();
+const store = configureStore( window.REDUX_STATE || {} );
 const AppBundle = (
   <ReduxProvider store={store}>
     <App />

@@ -19,7 +19,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div className="App-intro">
-          <AsyncComponent />
+          <AsyncComponent demo={this.props.demo} />
         </div>
       </div>
     );
@@ -27,9 +27,10 @@ class App extends Component {
 }
 
 const mapStateToProps = (states) => {
-  const { isAuthenticated } = states.auth;
+  const { isAuthenticated, demo } = states.auth;
   return {
     isAuthenticated,
+    demo,
   }
 }
 

@@ -4,6 +4,7 @@ const initialState = {
   auth: {
     isAuthenticated: false,
     errors: {},
+    demo: "Hello My name is Cuong",
   },
 };
 
