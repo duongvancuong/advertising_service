@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Test = () => (
-  <div>Hello</div>
+const Test = (props) => (
+  <div>{props.demo}</div>
 );
 
 export default Test;

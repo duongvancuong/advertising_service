@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
+import { connect } from 'react-redux';
 
 import './App.css';
 
@@ -18,11 +19,19 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div className="App-intro">
-          <AsyncComponent />
+          <AsyncComponent demo={this.props.demo} />
         </div>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (states) => {
+  const { isAuthenticated, demo } = states.auth;
+  return {
+    isAuthenticated,
+    demo,
+  }
+}
+
+export default connect(mapStateToProps)(App);

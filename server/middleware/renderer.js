@@ -1,6 +1,7 @@
 import React from 'react'
-import ReactDOMServer from 'react-dom/server'
-import Loadable from 'react-loadable';
+import ReactDOMServer from 'react-dom/server';
+import { Provider as ReduxProvider } from 'react-redux';
+// import Loadable from 'react-loadable';
 
 // read the manifest file
 import manifest from '../../build/asset-manifest.json';
@@ -16,7 +17,7 @@ import App from '../../src/App';
 const path = require("path");
 const fs = require("fs");
 
-export default (req, res, next) => {
+export default (store) => (req, res, next) => {
 
   // get the html file created by CRA's build tool
   const filePath = path.resolve(__dirname, '..', '..', 'build', 'index.html');
@@ -31,11 +32,12 @@ export default (req, res, next) => {
 
     // render the app as a string
     const html = ReactDOMServer.renderToString(
-      <Loadable.Capture report={m => modules.push(m)}>
+      <ReduxProvider store={store}>
         <App/>
-      </Loadable.Capture>
+      </ReduxProvider>
     );
     console.log(modules);
+    const reduxState = JSON.stringify(store.getState());
 
     const extraChunks = extractAssets(manifest, modules)
       .map(c => `<script type="text/javascript" src="/${c}"></script>`);
@@ -47,6 +49,7 @@ export default (req, res, next) => {
       htmlData
         .replace('<div id="root"></div>', `<div id="root">${html}</div>`)
         .replace('</body>', extraChunks.join('') + '</body>')
+        .replace('"__SERVER_REDUX_STATE__"', reduxState)
     );
   });
 }
